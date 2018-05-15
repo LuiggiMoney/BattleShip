@@ -106,13 +106,17 @@ public class BattleShip {
             while ((x < 0 || x > 9) || (y < 0 || y > 9)) {
                 System.out.println("Those coordinates are invalid, select other coordinates!");
                 System.out.print("Enter X Y coordinates: ");
+                while (!K.hasNextInt())K.next();
                 x = K.nextInt();
+                while (!K.hasNextInt())K.next();
                 y = K.nextInt();
             }
             while (UserXY[y][x] != null) {
                 System.out.println("Those coordinates are already in use, select other coordinates!");
                 System.out.print("Enter X Y coordinates: ");
+                while (!K.hasNextInt())K.next();
                 x = K.nextInt();
+                while (!K.hasNextInt())K.next();
                 y = K.nextInt();
             }
             UserXY[y][x]="@";
@@ -143,7 +147,9 @@ public class BattleShip {
         int y;
         do {
             System.out.println("Enter X Y coordinates to attack:");
+            while (!K.hasNextInt())K.next();
             x = K.nextInt();
+            while (!K.hasNextInt())K.next();
             y = K.nextInt();
         } while ((x < 0 || x > 9) || (y < 0 || y > 9)||UserHits[y][x] != null);
         if (CompXY_Ships[y][x] != null) {
