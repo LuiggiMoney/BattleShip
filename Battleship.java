@@ -5,10 +5,8 @@ import java.util.*;
 
 public class BattleShip {
     static Scanner K = new Scanner(System.in);
-    static String red="\033[31m"; 
+    static String red="\033[31m";
     static String reset="\u001B[0m";
-    private final ArrayList<String[]> CompGame = new ArrayList<>();
-    private final ArrayList<String[]> UserGame = new ArrayList<>();
     private static void InitBoard() { //10x10 boardgame for battleship initializer
         String board_2D[][] = new String [10][10];
         // BattleshipTitle
@@ -78,7 +76,7 @@ public class BattleShip {
         return posY;
     }
     public static void AdvancedIA(int X, int Y) {
-        
+
     }
     public static String[][] CompPos() {
         String CompXY [][] = new String[10][10];
@@ -226,7 +224,7 @@ public class BattleShip {
         InitBoard();
         game();
     }
-    
+
     public static void game() {
         int Turn = 1;
         int CompCounter = 0;
@@ -236,13 +234,13 @@ public class BattleShip {
         String[][] CompHits = new String [10][10];
         String[][] UserXY_Ships = UserPos();
         String[][] UserHits = new String [10][10];
-        while (CompCounter < 10 || UserCounter < 10) {
+        while (CompCounter < 10 && UserCounter < 10) {
             Board(UserXY_Ships, CompHits, UserHits, CompXY_Ships);
             if (UserTurn(UserHits, CompXY_Ships)) UserCounter++;
             if (CompTurn(CompHits, UserXY_Ships)) CompCounter++;
             System.out.println("Turn: "+Turn+"\nRival Hits: "+CompCounter + "\nUser Hits: " + UserCounter);
             Turn++;
-        }    
+        }
         if (UserCounter == 10) GameResult = true;
         if (CompCounter == 10) GameResult = false;
         if (GameResult) System.out.println("USER WINS!");
