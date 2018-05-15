@@ -85,11 +85,11 @@ public class BattleShip {
         for (int i = 0; i < 10; i++) {
             x = IAx();
             y = IAy();
-            while (CompXY[x][y] != null) {
+            while (CompXY[y][x] != null) {
                 x = IAx();
                 y = IAy();
             }
-            CompXY[x][y]="@";
+            CompXY[y][x]="@";
         }
         return CompXY;
     }
@@ -99,15 +99,23 @@ public class BattleShip {
         int y;
         for (int i = 0; i < 10; i++) {
             System.out.print("Enter X Y coordinates: ");
-            x = K.nextInt();
-            y = K.nextInt();
-            while (UserXY[x][y] != null) {
+            while (!K.hasNextInt())K.next();
+                x = K.nextInt();
+            while (!K.hasNextInt())K.next();
+                y = K.nextInt();
+            while ((x < 0 || x > 9) || (y < 0 || y > 9)) {
+                System.out.println("Those coordinates are invalid, select other coordinates!");
+                System.out.print("Enter X Y coordinates: ");
+                x = K.nextInt();
+                y = K.nextInt();
+            }
+            while (UserXY[y][x] != null) {
                 System.out.println("Those coordinates are already in use, select other coordinates!");
                 System.out.print("Enter X Y coordinates: ");
                 x = K.nextInt();
                 y = K.nextInt();
             }
-            UserXY[x][y]="@";
+            UserXY[y][x]="@";
         }
         System.out.println("\n");
         return UserXY;
@@ -119,13 +127,13 @@ public class BattleShip {
         do {
             x = IAx();
             y = IAy();
-        } while (CompHits[x][y] != null);
-        if (UserXY_Ships[x][y] != null) {
-            UserXY_Ships[x][y] = "#";
-            CompHits[x][y] = "@";
+        } while (CompHits[y][x] != null);
+        if (UserXY_Ships[y][x] != null) {
+            UserXY_Ships[y][x] = "#";
+            CompHits[y][x] = "@";
             HIT = true;
         } else {
-            CompHits[x][y] = "X";
+            CompHits[y][x] = "X";
         }
         return HIT;
     }
@@ -137,12 +145,12 @@ public class BattleShip {
             System.out.println("Enter X Y coordinates to attack:");
             x = K.nextInt();
             y = K.nextInt();
-        } while (UserHits[x][y] != null);
-        if (CompXY_Ships[x][y] != null) {
-            UserHits[x][y] = "#";
+        } while ((x < 0 || x > 9) || (y < 0 || y > 9)||UserHits[y][x] != null);
+        if (CompXY_Ships[y][x] != null) {
+            UserHits[y][x] = "#";
             HIT = true;
         } else {
-            UserHits[x][y] = "X";
+            UserHits[y][x] = "X";
         }
         return HIT;
     }
@@ -241,6 +249,7 @@ public class BattleShip {
             System.out.println("Turn: "+Turn+"\nRival Hits: "+CompCounter + "\nUser Hits: " + UserCounter);
             Turn++;
         }
+        Board(UserXY_Ships, CompHits, UserHits, CompXY_Ships);
         if (UserCounter == 10) GameResult = true;
         if (CompCounter == 10) GameResult = false;
         if (GameResult) System.out.println("USER WINS!");
